@@ -9,7 +9,7 @@ Alexandria's goal functionality:
 * Provide user accounts to manage progress, favorites, history, and etc of the media provided.
 
 ### Launching
-
+`docker-compose build` - build the containers (only needed the first run and after modification)
 `docker-compose up -d` - run the containers in detached mode.
 
 The `docker-compose.yml` file is responsible for configuring how each container is spun up and setting up the environment to allow communication between containers.
