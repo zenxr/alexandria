@@ -9,7 +9,7 @@ Alexandria's goal functionality:
 * Provide user accounts to manage progress, favorites, history, and etc of the media provided.
 
 ### Launching
-`docker-compose build` - build the containers (only needed the first run and after modification)
+`docker-compose build` - build the containers (only necessary for first run or if code is modified)
 `docker-compose up -d` - run the containers in detached mode.
 
 The `docker-compose.yml` file is responsible for configuring how each container is spun up and setting up the environment to allow communication between containers.
@@ -17,7 +17,7 @@ The `docker-compose.yml` file is responsible for configuring how each container 
 | Server | Port and information |
 |:---|:----|
 | (Eventually) React | Port 3000(?) - provides UI, should be authenticated eventually |
-| Express | Port 3000 - provides business layer; functions as any other RESTful JSON API. |
+| (WIP) Express | Port 3000 - provides business layer; functions as any other RESTful JSON API. |
 | MongoDB | Port 27017 - access to the MongoDB server. Protected via authentication |
 | AdminMongo | Port 1234 - admin panel for viewing the status of the MongoDb server. Protected via authentication |
 
@@ -35,8 +35,9 @@ The `docker-compose.yml` file is responsible for configuring how each container 
 * `docker-compose build` - rebuild the docker containers
 * `docker-compose up -d` - run the containers in detached mode
 * `docker-compose up` - doesn't detach (this can be useful for seeing data during development)
+* `docker-compose up -f docker-compose-only-db.yml up` - only starts adminMongo and MongoDB containers (to launch the express server via `node index.js` and work on it without having to restart mongodb.. may be able to remove this with further configuration.
 
-Personally built a script to do both of these for faster restarts.
+Personally, I built a script to do both of these for faster restarts. Need to be ran as root unless docker is configured on your system to not need root/admin privileges.
 
 ### Notes
 
@@ -60,6 +61,13 @@ Need to look into more information on deploying for production status (using npm
 
 ### Resources
 
+Useful for development:
+* [PostMan](https://www.getpostman.com/) - useful for API development. Currently used to interact with the express-based API being created in Alexandria.
+* `curl` - a computer software project providing a library and command-line tool for transferring data using various protocols.
+
+Learning resources:
+
+* [Github Repo for a MERN Ebook Library](https://github.com/mdn/express-locallibrary-tutorial) and the [tutorial](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/skeleton_website) that shows step by step how to make it.
 * [Keeping API Clean using Express Router](https://scotch.io/tutorials/keeping-api-routing-clean-using-express-routers)
 * [Basic MERN app tutorial](https://scotch.io/@deityhub/getting-started-with-the-mern-stack#toc-node-server-setup)
 * [Old Mern App turorial](https://blog.cloudboost.io/creating-your-first-mern-stack-application-b6604d12e4d3)
