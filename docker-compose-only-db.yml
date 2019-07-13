@@ -1,13 +1,5 @@
 version: '3'
 services:
-  express-backend:
-    container_name: express-backend
-    build: ./express-backend
-    command: node index.js
-    ports: ['3000:3000']
-    links:
-      - mongodb
-    depends_on: ['mongodb']
   mongodb:
     container_name: mongodb
     restart: always

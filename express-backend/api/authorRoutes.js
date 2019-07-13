@@ -6,7 +6,8 @@ var Author = require('../datalayer/schemas/author');
 router.get('/', (req, res, next) => {
     Author.find({}, 'name')
     .then(data => res.json(data))
-    .catch(next);
+    .catch(next)
+    .catch(err => res.status(404).json({success: false}));
 });
 
 router.post('/', (req, res, next) => {
