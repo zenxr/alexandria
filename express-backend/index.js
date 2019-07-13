@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 const bodyParser = require('body-parser');
+var timeout = require('connect-timeout');
 
 const mongoDbConfig = require('./mongoDbConfig');
 const api = require('./api');
@@ -30,7 +31,16 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 //#endregion
 
+// set timeout
+app.use(timeout(1000));
+app.use(haltOnTimedout);
+
 // use api router for all /api queries
 app.use('/api', api);
 
+
 app.listen(port, () => console.log(`Example app listening on port ${port}`));
+
+function haltOnTimedout(req, res, next){
+    if (!req.timeout) next();
+}
