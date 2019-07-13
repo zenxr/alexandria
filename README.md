@@ -9,6 +9,9 @@ Alexandria's goal functionality:
 * Provide user accounts to manage progress, favorites, history, and etc of the media provided.
 
 ### Launching
+
+You'll need `node`, `npm` and `docker` installed. Installation varies depending on OS.
+
 `docker-compose build` - build the containers (only necessary for first run or if code is modified)
 `docker-compose up -d` - run the containers in detached mode.
 
