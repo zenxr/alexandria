@@ -2,14 +2,16 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 const bodyParser = require('body-parser');
+var timeout = require('connect-timeout');
 
 const mongoDbConfig = require('./mongoDbConfig');
-const authorRoutes = require('./api/authorRoutes');
+const api = require('./api');
 
 const port = 3000;
 
+//#region DB configuration
 // Set up default mongoose connection
-mongoose.connect(mongoDbConfig.DBString);
+mongoose.connect(mongoDbConfig.DBString, {useNewUrlParser: true});
 
 // mongoose promise deprecated, overide it with node's promise
 mongoose.Promise = global.Promise;
@@ -19,13 +21,26 @@ var db = mongoose.connection;
 
 // Bind connection to error event (to get notification of connection errors)
 db.on('error', console.error.bind(console, 'MongoDb connection error:'));
+//#endregion
 
+//#region bodyParser config
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(bodyParser.json())
+//#endregion
 
-app.use('/api/authors', authorRoutes);
+// set timeout
+app.use(timeout(1000));
+app.use(haltOnTimedout);
+
+// use api router for all /api queries
+app.use('/api', api);
+
 
 app.listen(port, () => console.log(`Example app listening on port ${port}`));
+
+function haltOnTimedout(req, res, next){
+    if (!req.timeout) next();
+}
