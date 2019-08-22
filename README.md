@@ -59,7 +59,7 @@ Need to look into more information on deploying for production status (using npm
 ### What I've Learned
 
 * Docker is freaking cool!
-* Docker is great at enforcing Single Responsibility. I've set up a container for each layer of the application. Due to sandboxing Docker provides, each component can be truly separated from the rest of the system.
+* Docker is great at enforcing each layer of the application is separated. Due to sandboxing Docker provides, each component can be truly separated from the rest of the system.
 * Docker containers are, by design, entirely sandboxed. Additional configuration is necessary to allow communication between images.
 
 ### Resources
